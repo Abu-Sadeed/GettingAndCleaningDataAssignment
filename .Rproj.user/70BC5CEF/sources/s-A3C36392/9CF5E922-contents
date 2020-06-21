@@ -1,0 +1,13 @@
+library(data.table)
+library(reshape2)
+
+activityLabels <- fread("UCI HAR Dataset/activity_labels.txt", col.names = c("classLabels", "activityName"))
+
+features2 <- fread("UCI HAR Dataset/features.txt", col.names = c("index", "featureNames"))
+
+featuresWanted <- grep("(mean|std)\\(\\)", features2[, featureNames])
+
+measurements3 <- features2[featuresWanted, featureNames] %>%
+                  gsub('[()]', '')
+
+train2 <- fread("UCI HAR Dataset/train/X_train.txt")[, featuresWanted, with = FALSE]

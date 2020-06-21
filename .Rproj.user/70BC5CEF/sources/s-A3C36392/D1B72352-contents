@@ -1,0 +1,65 @@
+#Load necessary packages
+library(data.table)
+library(reshape2)
+
+
+#get activity labels
+
+activity_labels <- fread("UCI HAR Dataset/activity_labels.txt", col.names = c("activity_id", "activity_name"))
+
+#get features
+
+features <- fread("UCI HAR Dataset/features.txt", col.names = c("feature_id", "feature_name"))
+
+#mean and sd for measurements
+
+calculated_features <- grep("(mean|std)\\(\\)", features[, feature_name])
+
+measurements <- features[calculated_features, feature_name]
+
+measurements <- gsub('[()]', '', measurements)
+
+#read and complete train data
+
+train_set <- fread("UCI HAR Dataset/train/X_train.txt")[, calculated_features, with = FALSE]
+
+train_set <- setnames(train_set, colnames(train_set), measurements)
+
+training_labels <- fread("UCI HAR Dataset/train/y_train.txt", col.names = c("Activity_Labels"))
+
+subject_train <- fread("UCI HAR Dataset/train/subject_train.txt", col.names = c("Subjects"))
+
+train <- cbind(subject_train, training_labels, train_set)
+
+#read and complete test data
+
+test_set <- fread("UCI HAR Dataset/test/X_test.txt")[, calculated_features, with = FALSE]
+
+test_set <- setnames(test_set, colnames(test_set), measurements)
+
+test_labels <- fread("UCI HAR Dataset/test/y_test.txt", col.names = c("Activity_Labels"))
+
+test_subject <- fread("UCI HAR Dataset/test/subject_test.txt", col.names = c("Subjects"))
+
+test <- cbind(test_subject, test_labels, test_set)
+
+#merge test and train to data
+
+data <- rbind(train, test)
+
+
+#renaming the activity labels
+
+data[["Activity_Labels"]] <- factor(data[, Activity_Labels], levels = activity_labels[["activity_id"]], labels = activity_labels[["activity_name"]])
+
+
+#independent tidy data set with the average of each variable for each activity and each subject.
+#factor the subjects
+data[["Subjects"]] <- as.factor(data[, Subjects])
+
+#reshape the data to get the average
+avg_data <- melt(data = data, id = c("Subjects", "Activity_Labels"))
+avg_data <- reshape2::dcast(data = avg_data, Subjects + Activity_Labels ~ variable, fun.aggregate = mean)
+
+fwrite(x = data, file = "tidy_data.txt", quote = FALSE)
+fwrite(x = avg_data, file = "independent_tidy_data.txt", quote = FALSE)
