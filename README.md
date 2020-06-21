@@ -14,6 +14,6 @@ The "acvity_labels" variable is categorized and renamed using original "activity
 ### Result
 The tidy_data.txt file refers to data after 4th step.
 The final result is independent_tidy_data.txt.
-For CodeBook Click [HERE]()
+For CodeBook Click [HERE](https://github.com/KillerQueen-BitesZaDusto/GettingAndCleaningDataAssignment/blob/master/CodeBook.md)
 
 
