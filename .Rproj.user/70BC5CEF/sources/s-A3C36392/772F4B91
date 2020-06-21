@@ -1,0 +1,32 @@
+{
+    "id": "772F4B91",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1592768651384.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "expression": "avg_data",
+        "caption": "avg_data",
+        "totalObservations": 180,
+        "displayedObservations": 180,
+        "variables": 68,
+        "cacheKey": "FA03C337",
+        "object": "avg_data",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=avg_data&cache_key=FA03C337&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1592766786,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1592768651384,
+    "read_only": false,
+    "read_only_alternatives": []
+}
