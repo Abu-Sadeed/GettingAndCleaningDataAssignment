@@ -62,4 +62,7 @@ avg_data <- melt(data = data, id = c("Subjects", "Activity_Labels"))
 avg_data <- reshape2::dcast(data = avg_data, Subjects + Activity_Labels ~ variable, fun.aggregate = mean)
 
 fwrite(x = data, file = "tidy_data.txt", quote = FALSE)
-fwrite(x = avg_data, file = "independent_tidy_data.txt", quote = FALSE)
+#fwrite(x = avg_data, file = "independent_tidy_data.txt", quote = FALSE)
+
+write.table(avg_data, file = "independent_tidy_data.txt", row.names = FALSE)
+
